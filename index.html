@@ -1,212 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Happy Birthday, Nikhil</title>
   <style>
     :root {
-      --card-width: min(90vw, 350px);
-      --card-height: calc(var(--card-width) * 1.4);
-      --red: #8a1a2e;
-      --cream: #ece9e2;
+      --bg-dark: rgba(0, 0, 0, 0.38);
+      --paper: #f0efe9;
+      --paper-shadow: rgba(0, 0, 0, 0.12);
+      --deep-red: #8d0d2d;
+      --red: #a61132;
+      --rose: #d34a6a;
+      --ink: #4a2c26;
+      --gold: #d7b54d;
+      --cream: #f9f3ed;
+      --black: #1c120f;
+      --card-w: min(84vw, 420px);
+      --card-h: calc(var(--card-w) * 1.45);
+      --spread-w: min(78vw, 620px);
+      --spread-h: min(72vh, 580px);
+      --page-h: calc(var(--spread-h) * 0.95);
+      --page-w: calc(var(--spread-w) / 2.3);
+      --page-pad: 18px;
       --hand: "Segoe Script", "Bradley Hand", "Snell Roundhand", "Brush Script MT", cursive;
+      --serif: Georgia, serif;
     }
 
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
+    * { box-sizing: border-box; }
 
     html, body {
       margin: 0;
-      padding: 0;
       width: 100%;
       height: 100%;
       overflow: hidden;
       font-family: var(--hand);
+      background: #201817;
     }
 
     body {
-      background: url('Background.jpg') center 30% / cover no-repeat fixed #1a1412;
+      background-image: url('Background.jpg');
+      background-size: cover;
+      background-position: center 30%;
+      background-repeat: no-repeat;
+      position: relative;
     }
 
     body::before {
       content: "";
       position: fixed;
       inset: 0;
-      background: radial-gradient(ellipse at 50% 30%, transparent 0%, rgba(0,0,0,0.4) 100%);
+      background: radial-gradient(circle at center, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.4) 66%, rgba(0,0,0,0.54) 100%);
       pointer-events: none;
-      z-index: 1;
+      z-index: 0;
     }
 
-    .container {
-      position: fixed;
-      inset: 0;
+    .scene {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
-      perspective: 1200px;
-      z-index: 2;
+      perspective: 2000px;
     }
 
     .book {
       position: relative;
-      width: var(--card-width);
-      height: var(--card-height);
+      width: var(--card-w);
+      height: var(--card-h);
       transform-style: preserve-3d;
-      transition: transform 1.2s cubic-bezier(0.6, 0.05, 0.25, 1);
+      transition: transform 1.2s cubic-bezier(.6,.05,.25,1);
+      filter: drop-shadow(0 16px 24px rgba(0,0,0,.22));
     }
 
     .book.open {
-      transform: translateX(calc(var(--card-width) / 2)) rotateY(0deg);
+      transform: translateX(0) rotateY(0deg);
     }
 
-    /* COVER */
     .cover {
       position: absolute;
       inset: 0;
-      background: var(--cream);
-      background-image: 
-        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px),
-        repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
-      border: 2px dashed rgba(0,0,0,0.2);
-      border-radius: 4px;
       cursor: pointer;
+      background: rgba(250,248,244,0.35);
+      border-radius: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
       transform-style: preserve-3d;
-      backface-visibility: hidden;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+      user-select: none;
+      transition: opacity 0.5s ease;
+      padding: 0;
+    }
+
+    .cover::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(0,0,0,0.04);
+      border-radius: 6px;
+      pointer-events: none;
     }
 
     .cover img {
-      width: 85%;
-      height: 85%;
+      width: 96%;
+      height: 96%;
       object-fit: contain;
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+      border-radius: 2px;
+      filter: drop-shadow(0 6px 12px rgba(0,0,0,0.12));
+      position: relative;
+      z-index: 1;
     }
 
-    .book.open .cover {
-      pointer-events: none;
-    }
-
-    .hint {
+    .cover-hint {
       position: absolute;
-      bottom: -40px;
+      bottom: -28px;
       left: 50%;
       transform: translateX(-50%);
+      color: rgba(255,255,255,0.9);
       font-size: 12px;
-      color: rgba(255,255,255,0.8);
-      text-shadow: 0 1px 4px rgba(0,0,0,0.5);
-      white-space: nowrap;
-      transition: opacity 0.4s;
       font-style: italic;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+      letter-spacing: 0.02em;
+      z-index: 2;
     }
 
-    .book.open .hint {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    /* SPREAD */
     .spread {
       position: absolute;
-      inset: 0;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.92);
+      width: var(--spread-w);
+      height: var(--spread-h);
       display: flex;
-      transform-style: preserve-3d;
-      transition: transform 1.2s cubic-bezier(0.6, 0.05, 0.25, 1);
+      align-items: stretch;
       opacity: 0;
       pointer-events: none;
+      transition: opacity 0.6s ease;
+      filter: drop-shadow(0 18px 32px rgba(0,0,0,0.25));
     }
 
+    .book.open ~ .spread,
     .book.open .spread {
       opacity: 1;
       pointer-events: auto;
     }
 
     .page {
-      flex: 1;
-      background: var(--cream);
-      background-image: 
-        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px),
-        repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
       position: relative;
-      padding: 30px 25px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      box-shadow: -4px 0 12px rgba(0,0,0,0.1);
+      width: calc(var(--spread-w) / 2.1);
+      height: var(--spread-h);
+      background: rgba(239,236,229,0.78);
+      background-image:
+        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.08) 1px, transparent 0);
+      background-size: 8px 8px;
+      border: 1px solid rgba(0,0,0,0.08);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.14), 0 4px 10px rgba(0,0,0,0.08);
+      padding: 22px 18px 12px;
+      overflow: hidden;
     }
 
-    .page:last-child {
-      box-shadow: 4px 0 12px rgba(0,0,0,0.1);
+    .page.left {
+      border-right: 1px solid rgba(0,0,0,0.06);
+      background-position: center;
+    }
+
+    .page.right {
+      border-left: 1px solid rgba(0,0,0,0.06);
     }
 
     .page-title {
+      display: block;
       width: 100%;
-      height: 50px;
-      object-fit: contain;
-      margin-bottom: 15px;
+      max-width: 230px;
+      margin: 0 auto 12px;
+      text-align: center;
+      font-size: clamp(1.2rem, 2vw, 2.3rem);
+      line-height: 1;
+      color: var(--deep-red);
+      font-style: italic;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-shadow: 0 1px 0 rgba(0,0,0,0.12);
     }
 
-    /* LEFT PAGE - LETTER */
-    .letter-section {
-      flex: 1;
+    .page-title.right {
+      max-width: 240px;
+      font-size: clamp(1.5rem, 2.2vw, 2.8rem);
+    }
+
+    .letter-wrap {
+      position: relative;
+      width: min(85%, 260px);
+      height: 190px;
+      margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 100%;
-      position: relative;
-      min-height: 200px;
-    }
-
-    .envelope {
-      position: relative;
-      width: 140px;
-      height: 180px;
+      margin-top: 24px;
     }
 
     .envelope-back {
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, #6b0a1a 0%, #8a1a2e 100%);
+      background: linear-gradient(135deg, #7f081b, #a30b27 42%, #8d0d2d 100%);
       border-radius: 2px;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.08);
       z-index: 1;
     }
 
-    .letter-img {
+    .letter-sheet {
       position: absolute;
-      inset: 10px;
-      background: white;
+      left: 50%;
+      top: 40%;
+      transform: translate(-50%, -50%);
+      width: 82%;
+      height: 78%;
+      background: rgba(255,255,255,0.78);
       border-radius: 2px;
       overflow: hidden;
+      box-shadow: 0 8px 10px rgba(0,0,0,0.07);
       z-index: 2;
       cursor: pointer;
-      transition: all 0.8s cubic-bezier(0.5, 0, 0.2, 1);
-      transform-origin: center;
+      transition: all 0.8s cubic-bezier(.5,0,.2,1);
     }
 
-    .letter-img:hover:not(.pulled) {
-      transform: translateY(-8px);
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
-    }
-
-    .letter-img img {
+    .letter-sheet img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
     }
 
-    .letter-img.pulled {
-      z-index: 100;
-      inset: 50%;
-      width: 180px;
-      height: 200px;
-      margin: -100px 0 0 -90px;
-      transform: scale(1.3);
-      filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3));
+    .letter-sheet.pulled {
+      width: 210px;
+      height: 230px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) scale(1.25);
+      z-index: 30;
+      box-shadow: 0 20px 30px rgba(0,0,0,0.2);
     }
 
     .envelope-front {
@@ -218,557 +253,583 @@
 
     .letter-hint {
       position: absolute;
-      bottom: -30px;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
       font-size: 11px;
-      color: rgba(0,0,0,0.6);
       font-style: italic;
+      color: rgba(70,40,33,0.8);
+      text-align: center;
       white-space: nowrap;
     }
 
-    /* RIGHT PAGE - CANDLE */
-    .candle-section {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      gap: 15px;
-    }
-
-    .cake-container {
+    .candle-wrap {
       position: relative;
-      width: 140px;
-      height: 140px;
+      width: 230px;
+      height: 200px;
+      margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: center;
+      margin-top: 4px;
     }
 
-    .cake-img {
-      width: 100%;
-      height: 100%;
+    .cake {
+      width: 160px;
+      height: 130px;
       object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 10px 12px rgba(0,0,0,0.05));
+      position: relative;
+      z-index: 1;
     }
 
     .flame {
       position: absolute;
-      top: 30%;
       left: 50%;
+      top: 24px;
+      width: 42px;
+      height: 70px;
       transform: translateX(-50%);
-      width: 35px;
-      height: 60px;
-      object-fit: contain;
-      filter: drop-shadow(0 0 12px #ffb52e) drop-shadow(0 0 24px #ff9a2e);
-      animation: flicker 0.4s ease-in-out infinite alternate;
-      transform-origin: bottom center;
-      transition: opacity 0.3s, filter 0.3s;
+      filter: drop-shadow(0 0 12px rgba(255,180,50,0.8)) drop-shadow(0 0 24px rgba(255,144,50,0.45));
+      transition: transform .08s linear, opacity .2s ease, filter .2s ease;
+      z-index: 2;
+      animation: flicker 0.28s ease-in-out infinite alternate;
+    }
+
+    .flame::before, .flame::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(252,254,157,0.95), rgba(255,141,0,0.9) 50%, rgba(255,80,0,0.9));
+      clip-path: polygon(50% 0%, 100% 55%, 88% 100%, 50% 88%, 12% 100%, 0% 55%);
+      border-radius: 50% 50% 46% 46%;
+      transform-origin: center bottom;
+    }
+
+    .flame::after {
+      transform: scale(0.72) rotate(12deg);
+      opacity: 0.72;
     }
 
     .flame.out {
       opacity: 0;
-      filter: blur(4px) drop-shadow(0 0 4px rgba(0,0,0,0.2));
+      filter: blur(5px);
       animation: none;
-      pointer-events: none;
+      transform: translateX(-50%) scale(0.2);
     }
 
     @keyframes flicker {
-      0% { transform: translateX(-50%) scaleY(1) rotate(-1deg); }
-      50% { transform: translateX(-50%) scaleY(1.05) rotate(1deg); }
-      100% { transform: translateX(-50%) scaleY(0.98) rotate(-1.5deg); }
+      0% { transform: translateX(-50%) rotate(-2deg) scaleY(1); }
+      50% { transform: translateX(-50%) rotate(3deg) scaleY(1.08); }
+      100% { transform: translateX(-50%) rotate(-4deg) scaleY(0.96); }
     }
 
     .controls {
       width: 100%;
+      margin-top: 14px;
       text-align: center;
     }
 
+    .live {
+      display: block;
+    }
+
     .status {
+      min-height: 22px;
+      margin-bottom: 10px;
       font-size: 14px;
-      color: #5a3a26;
-      margin-bottom: 12px;
-      min-height: 20px;
+      color: var(--ink);
+      font-style: italic;
     }
 
     .meter {
-      width: 100%;
-      max-width: 150px;
-      height: 12px;
-      background: rgba(0,0,0,0.1);
-      border-radius: 6px;
-      overflow: hidden;
-      margin: 0 auto 12px;
-      border: 1px solid rgba(0,0,0,0.15);
       position: relative;
+      width: min(72%, 180px);
+      height: 11px;
+      margin: 0 auto 16px;
+      border-radius: 999px;
+      background: rgba(12,9,9,0.08);
+      border: 1px solid rgba(0,0,0,0.12);
+      overflow: hidden;
     }
 
     .meter-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #e8a33a, #c0392b);
+      position: absolute;
+      inset: 0 auto 0 0;
       width: 0%;
-      transition: width 0.05s linear;
+      background: linear-gradient(90deg, #efb24d, #c32639);
+      border-radius: inherit;
+      transition: width .08s linear;
     }
 
-    .meter-marker {
+    .meter-mark {
       position: absolute;
-      top: 0;
-      bottom: 0;
       left: 45%;
+      top: 0;
       width: 2px;
-      background: rgba(59, 36, 23, 0.5);
+      height: 100%;
+      background: rgba(76,57,49,0.55);
     }
 
     .button-row {
       display: flex;
-      gap: 12px;
       justify-content: center;
+      gap: 12px;
       flex-wrap: wrap;
+      margin: 0 auto;
     }
 
     button {
-      font-family: var(--hand);
-      color: white;
-      background: var(--red);
       border: none;
-      border-radius: 24px;
+      border-radius: 999px;
+      background: var(--deep-red);
+      color: #fff;
+      font: inherit;
+      font-size: 15px;
       padding: 10px 20px;
       cursor: pointer;
-      font-size: 13px;
-      box-shadow: 0 3px 0 rgba(0,0,0,0.2);
-      transition: all 0.1s;
+      box-shadow: 0 3px 0 rgba(86, 6, 20, 0.7);
+      transition: transform .1s ease, box-shadow .1s ease;
       touch-action: none;
       user-select: none;
     }
 
     button:active {
       transform: translateY(2px);
-      box-shadow: 0 1px 0 rgba(0,0,0,0.2);
+      box-shadow: 0 1px 0 rgba(86, 6, 20, 0.7);
     }
 
     button.alt {
-      background: #f3ead6;
-      color: var(--red);
-      box-shadow: 0 3px 0 #b9a77e;
-    }
-
-    button.alt:active {
-      box-shadow: 0 1px 0 #b9a77e;
+      background: #f5ead9;
+      color: var(--deep-red);
+      box-shadow: 0 3px 0 rgba(136,120,85,0.7);
     }
 
     .wish-state {
       display: none;
+      padding-top: 10px;
       text-align: center;
     }
 
     .wish-state h2 {
-      margin: 0 0 8px;
-      font-size: 24px;
-      color: var(--red);
-      font-weight: normal;
+      margin: 8px 0 8px;
+      font-size: clamp(1.2rem, 2vw, 2.4rem);
+      color: var(--deep-red);
+      font-style: italic;
+      font-weight: 600;
     }
 
     .wish-state p {
-      margin: 0 0 16px;
-      font-size: 13px;
+      margin: 4px 0 16px;
+      font-size: 1rem;
+      color: var(--ink);
       font-style: italic;
-      color: #5a3a26;
     }
 
-    .book.wish-made .controls > .live {
-      display: none;
-    }
-
-    .book.wish-made .controls > .wish-state {
-      display: block;
-    }
+    .book.wish-made .live { display: none; }
+    .book.wish-made .wish-state { display: block; }
 
     .back-button {
       position: fixed;
-      bottom: 30px;
       left: 50%;
-      transform: translate(-50%, 20px);
+      bottom: 32px;
+      transform: translate(-50%, 18px);
       opacity: 0;
       pointer-events: none;
-      transition: all 0.5s 0.6s;
-      z-index: 10;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      z-index: 12;
     }
 
     .book.open ~ .back-button {
       opacity: 1;
-      transform: translate(-50%, 0);
       pointer-events: auto;
+      transform: translate(-50%, 0);
     }
 
     #confetti {
       position: fixed;
       inset: 0;
-      pointer-events: none;
       z-index: 5;
       display: none;
+      pointer-events: none;
     }
 
     .book.wish-made ~ #confetti {
       display: block;
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      .book,
-      .spread,
-      .letter-img,
-      .flame {
-        transition-duration: 0.01s !important;
+    @media (max-width: 760px) {
+      :root {
+        --spread-w: min(88vw, 560px);
+        --spread-h: min(68vh, 440px);
       }
-      .flame {
+      .page-title {
+        max-width: 170px;
+      }
+      .page-title.right {
+        max-width: 190px;
+      }
+      .letter-wrap {
+        width: 70%;
+      }
+      .candle-wrap {
+        width: 170px;
+      }
+      .cake {
+        width: 140px;
+      }
+      .button-row { gap: 8px; }
+      button { padding: 9px 14px; font-size: 13px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
         animation: none !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
       }
     }
   </style>
 </head>
 <body>
-
-<div class="container">
-  <div class="book" id="book">
-    <!-- COVER -->
-    <div class="cover" id="cover">
-      <img src="Card front.jpg" alt="Happy Birthday Baby">
-      <div class="hint">tap to open</div>
+  <div class="scene">
+    <div class="book" id="book">
+      <div class="cover" id="cover" tabindex="0" role="button" aria-label="Open the birthday card">
+        <img src="Card front.jpg" alt="Happy Birthday Baby" />
+        <div class="cover-hint">tap to open</div>
+      </div>
     </div>
 
-    <!-- SPREAD -->
     <div class="spread">
-      <!-- LEFT PAGE: LETTER -->
-      <div class="page">
-        <img src="Letter.jpg" alt="A letter for you (AS ALWAYS)" class="page-title">
-        
-        <div class="letter-section">
-          <div class="envelope">
-            <div class="envelope-back"></div>
-            <div class="letter-img" id="letter">
-              <img src="Letter.jpg" alt="Dear Nikhil">
-            </div>
-            <svg class="envelope-front" viewBox="0 0 140 180" preserveAspectRatio="xMidYMid meet">
-              <path d="M 10 10 L 70 80 L 130 10 Z" fill="none" stroke="#8a1a2e" stroke-width="1.5" opacity="0.6"/>
-            </svg>
-            <div class="letter-hint">tap the letter</div>
+      <div class="page left">
+        <div class="page-title">A letter<br>for you <span style="font-size:0.7em; font-weight:600;">(AS ALWAYS)</span></div>
+        <div class="letter-wrap">
+          <div class="envelope-back"></div>
+          <div class="letter-sheet" id="letter">
+            <img src="Letter.jpg" alt="Letter to Nikhil" />
           </div>
+          <svg class="envelope-front" viewBox="0 0 200 200" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0,0 L100,70 L200,0 L200,200 L0,200 Z" fill="rgba(255,255,255,0.06)" />
+            <path d="M0,0 L100,65 L200,0" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="3"/>
+            <path d="M0,0 L0,200 L200,200 L200,0" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
+          </svg>
         </div>
+        <div class="letter-hint">tap the letter</div>
       </div>
 
-      <!-- RIGHT PAGE: CANDLE -->
-      <div class="page">
-        <img src="Main card.jpg" alt="Blow The Candle" class="page-title" style="height: 40px;">
-        
-        <div class="candle-section">
-          <div class="cake-container">
-            <img src="Main card.jpg" alt="Cake" class="cake-img">
-            <svg class="flame" id="flame" viewBox="0 0 20 40" preserveAspectRatio="xMidYMid meet">
-              <defs>
-                <linearGradient id="flameGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" style="stop-color:#ffff00;stop-opacity:1" />
-                  <stop offset="50%" style="stop-color:#ff9a00;stop-opacity:1" />
-                  <stop offset="100%" style="stop-color:#ff4500;stop-opacity:0.8" />
-                </linearGradient>
-              </defs>
-              <path d="M 10 40 Q 5 35 5 25 Q 5 15 10 5 Q 15 15 15 25 Q 15 35 10 40 Z" fill="url(#flameGrad)" stroke="none"/>
-            </svg>
+      <div class="page right">
+        <div class="page-title right">Blow The Candle</div>
+
+        <div class="candle-wrap">
+          <img src="Main card.jpg" alt="Birthday cake" class="cake" />
+          <div class="flame" id="flame" aria-hidden="true"></div>
+        </div>
+
+        <div class="controls">
+          <div class="live">
+            <div class="status" id="status">🎂 Blow out the candle!</div>
+            <div class="meter" aria-label="Microphone level">
+              <div class="meter-fill" id="meterFill"></div>
+              <div class="meter-mark"></div>
+            </div>
+            <div class="button-row">
+              <button class="alt" id="micBtn" type="button">Use microphone</button>
+              <button id="holdBtn" type="button">Hold to blow</button>
+            </div>
           </div>
 
-          <div class="controls">
-            <div class="live">
-              <div class="status" id="status">🎂 Blow out the candle!</div>
-              <div class="meter">
-                <div class="meter-fill" id="meter-fill"></div>
-                <div class="meter-marker"></div>
-              </div>
-              <div class="button-row">
-                <button class="alt" id="mic">Use microphone</button>
-                <button id="hold">Hold to blow</button>
-              </div>
-            </div>
-
-            <div class="wish-state">
-              <h2>make a wish</h2>
-              <p>Happy birthday, Nikhil.</p>
-              <button id="relight">Relight</button>
-            </div>
+          <div class="wish-state">
+            <h2>make a wish</h2>
+            <p>Happy birthday, Nikhil.</p>
+            <button id="relightBtn" type="button">Relight</button>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<button class="back-button" id="back">← Back to cover</button>
+  <button class="back-button" id="backBtn" type="button">Back to cover</button>
+  <canvas id="confetti"></canvas>
 
-<canvas id="confetti"></canvas>
+  <script>
+    const book = document.getElementById('book');
+    const cover = document.getElementById('cover');
+    const letter = document.getElementById('letter');
+    const flame = document.getElementById('flame');
+    const backBtn = document.getElementById('backBtn');
+    const status = document.getElementById('status');
+    const meterFill = document.getElementById('meterFill');
+    const micBtn = document.getElementById('micBtn');
+    const holdBtn = document.getElementById('holdBtn');
+    const relightBtn = document.getElementById('relightBtn');
+    const canvas = document.getElementById('confetti');
+    const ctx = canvas.getContext('2d');
 
-<script>
-const book = document.getElementById('book');
-const cover = document.getElementById('cover');
-const letter = document.getElementById('letter');
-const flame = document.getElementById('flame');
-const micBtn = document.getElementById('mic');
-const holdBtn = document.getElementById('hold');
-const backBtn = document.getElementById('back');
-const relightBtn = document.getElementById('relight');
-const status = document.getElementById('status');
-const meterFill = document.getElementById('meter-fill');
-const canvas = document.getElementById('confetti');
-const ctx = canvas.getContext('2d');
+    let wishMade = false;
+    let micActive = false;
+    let audioStream = null;
+    let blowState = false;
+    let startOfBlow = 0;
+    let confetti = [];
 
-let isOpen = false;
-let wishMade = false;
-let micActive = false;
-let audioStream = null;
-let blowingThreshold = 0.05;
-let blowStartTime = 0;
-let isBlowing = false;
-
-// Resize canvas
-function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
-
-// COVER OPEN/CLOSE
-cover.addEventListener('click', toggleBook);
-cover.addEventListener('keydown', (e) => {
-  if (e.code === 'Enter' || e.code === 'Space') {
-    e.preventDefault();
-    toggleBook();
-  }
-});
-
-function toggleBook() {
-  isOpen = !isOpen;
-  book.classList.toggle('open');
-  if (isOpen) {
-    micBtn.focus();
-  } else {
-    resetWish();
-  }
-}
-
-// LETTER PULL OUT
-letter.addEventListener('click', (e) => {
-  e.stopPropagation();
-  letter.classList.toggle('pulled');
-});
-
-// BACK TO COVER
-backBtn.addEventListener('click', () => {
-  isOpen = false;
-  book.classList.remove('open');
-  resetWish();
-  stopMic();
-  letter.classList.remove('pulled');
-});
-
-// BLOW DETECTION
-holdBtn.addEventListener('mousedown', () => blowOut());
-holdBtn.addEventListener('touchstart', (e) => {
-  e.preventDefault();
-  blowOut();
-});
-document.addEventListener('keydown', (e) => {
-  if (e.code === 'Space' && isOpen && !wishMade) {
-    e.preventDefault();
-    blowOut();
-  }
-});
-
-micBtn.addEventListener('click', () => {
-  micActive = !micActive;
-  micBtn.textContent = micActive ? '⏹ Stop' : '🎤 Use microphone';
-  if (micActive) startMic();
-  else stopMic();
-});
-
-function startMic() {
-  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-    status.textContent = '🎤 Mic unavailable. Hold the button to blow.';
-    return;
-  }
-
-  const isHttps = location.protocol === 'https:' || location.hostname === 'localhost';
-  if (!isHttps) {
-    status.textContent = '🔒 Mic needs HTTPS. Hold button to blow.';
-    micActive = false;
-    micBtn.textContent = '🎤 Use microphone';
-    return;
-  }
-
-  navigator.mediaDevices.getUserMedia({
-    audio: {
-      echoCancellation: false,
-      noiseSuppression: false,
-      autoGainControl: false
+    function openCard() {
+      book.classList.add('open');
+      book.classList.remove('wish-made');
+      status.textContent = '🎂 Blow out the candle!';
+      meterFill.style.width = '0%';
+      flame.classList.remove('out');
+      if (letter.classList.contains('pulled')) letter.classList.remove('pulled');
     }
-  }).then(stream => {
-    audioStream = stream;
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const analyser = audioContext.createAnalyser();
-    const source = audioContext.createMediaStreamSource(stream);
-    source.connect(analyser);
-    analyser.fftSize = 256;
 
-    const dataArray = new Uint8Array(analyser.frequencyBinCount);
-    let noiseFloor = 0;
-    let levelSmooth = 0;
-
-    function analyze() {
-      if (!micActive) return;
-      analyser.getByteFrequencyData(dataArray);
-      const sum = dataArray.reduce((a, b) => a + b, 0);
-      const rms = Math.sqrt(sum / dataArray.length) / 255;
-
-      // Adapt noise floor
-      if (rms < noiseFloor) {
-        noiseFloor = noiseFloor * 0.95 + rms * 0.05;
-      } else {
-        noiseFloor = noiseFloor * 0.98 + rms * 0.02;
-      }
-
-      // Smooth level
-      const level = Math.max(0, rms - noiseFloor);
-      levelSmooth = levelSmooth * 0.8 + level * 0.2;
-
-      meterFill.style.width = Math.min(100, levelSmooth * 500) + '%';
-
-      if (levelSmooth > blowingThreshold) {
-        if (!isBlowing) {
-          isBlowing = true;
-          blowStartTime = Date.now();
-          bendFlame(Math.min(1, levelSmooth * 10));
-        } else {
-          bendFlame(Math.min(1, levelSmooth * 10));
-          if (Date.now() - blowStartTime > 500) {
-            blowOut();
-          }
-        }
-      } else {
-        isBlowing = false;
-        resetFlame();
-      }
-
-      requestAnimationFrame(analyze);
+    function closeCard() {
+      book.classList.remove('open');
+      book.classList.remove('wish-made');
+      flame.classList.remove('out');
+      status.textContent = '🎂 Blow out the candle!';
+      meterFill.style.width = '0%';
+      letter.classList.remove('pulled');
+      stopMic();
+      clearConfetti();
     }
-    analyze();
-  }).catch(() => {
-    status.textContent = '🎤 Mic denied. Hold button to blow.';
-    micActive = false;
-    micBtn.textContent = '🎤 Use microphone';
-  });
-}
 
-function stopMic() {
-  micActive = false;
-  micBtn.textContent = '🎤 Use microphone';
-  if (audioStream) {
-    audioStream.getTracks().forEach(t => t.stop());
-    audioStream = null;
-  }
-  isBlowing = false;
-  resetFlame();
-}
-
-function bendFlame(strength) {
-  const angle = strength * 35;
-  const skew = strength * 0.3;
-  flame.style.transform = `translateX(-50%) rotateZ(${angle}deg) skewX(${skew}deg)`;
-}
-
-function resetFlame() {
-  flame.style.transform = 'translateX(-50%) rotateZ(0deg) skewX(0deg)';
-}
-
-function blowOut() {
-  if (wishMade) return;
-  wishMade = true;
-  book.classList.add('wish-made');
-  flame.classList.add('out');
-  stopMic();
-  status.textContent = '';
-  fireConfetti();
-}
-
-function resetWish() {
-  wishMade = false;
-  book.classList.remove('wish-made');
-  flame.classList.remove('out');
-  status.textContent = '🎂 Blow out the candle!';
-  meterFill.style.width = '0%';
-  clearConfetti();
-}
-
-relightBtn.addEventListener('click', resetWish);
-
-// CONFETTI
-let confettiPieces = [];
-
-function fireConfetti() {
-  const cakeRect = document.querySelector('.cake-container').getBoundingClientRect();
-  const startX = cakeRect.left + cakeRect.width / 2;
-  const startY = cakeRect.top + cakeRect.height / 2;
-
-  const colors = ['#8a1a2e', '#f3ead6', '#d4af37', '#ff69b4'];
-  confettiPieces = [];
-
-  for (let i = 0; i < 170; i++) {
-    confettiPieces.push({
-      x: startX,
-      y: startY,
-      vx: (Math.random() - 0.5) * 8,
-      vy: (Math.random() - 0.5) * 8 - 2,
-      rotation: Math.random() * 360,
-      rotationSpeed: (Math.random() - 0.5) * 10,
-      color: colors[Math.floor(Math.random() * colors.length)],
-      size: Math.random() * 6 + 3,
-      life: 1,
-      decay: Math.random() * 0.01 + 0.005
+    cover.addEventListener('click', () => {
+      if (!book.classList.contains('open')) openCard();
     });
-  }
 
-  animateConfetti();
-}
+    cover.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        if (!book.classList.contains('open')) openCard();
+      }
+    });
 
-function animateConfetti() {
-  if (confettiPieces.length === 0) return;
+    backBtn.addEventListener('click', closeCard);
 
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  
-  confettiPieces = confettiPieces.filter(p => {
-    p.x += p.vx;
-    p.y += p.vy;
-    p.vy += 0.2; // gravity
-    p.rotation += p.rotationSpeed;
-    p.life -= p.decay;
+    letter.addEventListener('click', () => {
+      if (!book.classList.contains('open')) return;
+      letter.classList.toggle('pulled');
+    });
 
-    if (p.life <= 0) return false;
+    function setFlameStrength(strength) {
+      const clamp = Math.max(0, Math.min(1, strength));
+      const angle = clamp * 42;
+      const skew = clamp * 0.6;
+      flame.style.transform = `translateX(-50%) rotate(${angle}deg) skewX(${skew}deg)`;
+    }
 
-    ctx.save();
-    ctx.globalAlpha = p.life;
-    ctx.fillStyle = p.color;
-    ctx.translate(p.x, p.y);
-    ctx.rotate((p.rotation * Math.PI) / 180);
-    ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
-    ctx.restore();
+    function resetFlame() {
+      flame.style.transform = 'translateX(-50%) rotate(0deg) skewX(0deg)';
+    }
 
-    return true;
-  });
+    function blowOut() {
+      if (wishMade) return;
+      wishMade = true;
+      book.classList.add('wish-made');
+      flame.classList.add('out');
+      status.textContent = '';
+      meterFill.style.width = '0%';
+      launchConfetti();
+      stopMic();
+    }
 
-  if (confettiPieces.length > 0) {
-    requestAnimationFrame(animateConfetti);
-  }
-}
+    relightBtn.addEventListener('click', () => {
+      wishMade = false;
+      book.classList.remove('wish-made');
+      flame.classList.remove('out');
+      resetFlame();
+      status.textContent = '🎂 Blow out the candle!';
+      clearConfetti();
+    });
 
-function clearConfetti() {
-  confettiPieces = [];
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-}
-</script>
+    holdBtn.addEventListener('mousedown', () => {
+      if (!book.classList.contains('open')) return;
+      setFlameStrength(1);
+      blowOut();
+    });
 
+    holdBtn.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      if (!book.classList.contains('open')) return;
+      setFlameStrength(1);
+      blowOut();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.code === 'Space' && book.classList.contains('open') && !wishMade) {
+        e.preventDefault();
+        setFlameStrength(1);
+        blowOut();
+      }
+    });
+
+    function startMic() {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        status.textContent = 'Mic unavailable. Hold the button / Space to blow.';
+        return;
+      }
+
+      const secure = location.protocol === 'https:' || location.hostname === 'localhost';
+      if (!secure) {
+        status.textContent = 'Mic needs https. Hold the button / Space to blow.';
+        return;
+      }
+
+      navigator.mediaDevices.getUserMedia({
+        audio: {
+          echoCancellation: false,
+          noiseSuppression: false,
+          autoGainControl: false,
+        }
+      }).then((stream) => {
+        audioStream = stream;
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        const ctxAudio = new AudioCtx();
+        const analyser = ctxAudio.createAnalyser();
+        analyser.fftSize = 2048;
+        const source = ctxAudio.createMediaStreamSource(stream);
+        source.connect(analyser);
+
+        const timeData = new Float32Array(analyser.fftSize);
+        let noiseFloor = 0.01;
+        let smoothed = 0;
+
+        function frame() {
+          if (!micActive || wishMade) return;
+
+          analyser.getFloatTimeDomainData(timeData);
+
+          let sum = 0;
+          for (let i = 0; i < timeData.length; i++) {
+            const v = timeData[i];
+            sum += v * v;
+          }
+          const rms = Math.sqrt(sum / timeData.length);
+
+          noiseFloor = noiseFloor * 0.98 + Math.min(rms, 0.08) * 0.02;
+          const level = Math.max(rms - noiseFloor, 0);
+          smoothed = smoothed * 0.75 + level * 0.25;
+
+          const pct = Math.min(100, smoothed * 700);
+          meterFill.style.width = pct + '%';
+
+          if (smoothed > 0.035) {
+            setFlameStrength(Math.min(1, smoothed * 10));
+            if (!blowState) {
+              blowState = true;
+              startOfBlow = performance.now();
+            }
+            if (performance.now() - startOfBlow > 500) {
+              blowOut();
+              return;
+            }
+          } else {
+            blowState = false;
+            resetFlame();
+            meterFill.style.width = '0%';
+          }
+
+          requestAnimationFrame(frame);
+        }
+
+        frame();
+      }).catch(() => {
+        status.textContent = 'Mic denied. Hold the button / Space to blow.';
+      });
+    }
+
+    function stopMic() {
+      micActive = false;
+      micBtn.textContent = 'Use microphone';
+      if (audioStream) {
+        audioStream.getTracks().forEach(track => track.stop());
+        audioStream = null;
+      }
+      blowState = false;
+      resetFlame();
+      meterFill.style.width = '0%';
+      status.textContent = '🎂 Blow out the candle!';
+    }
+
+    micBtn.addEventListener('click', () => {
+      if (!book.classList.contains('open')) return;
+      micActive = !micActive;
+      micBtn.textContent = micActive ? 'Stop' : 'Use microphone';
+      if (micActive) {
+        startMic();
+      } else {
+        stopMic();
+      }
+    });
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    function launchConfetti() {
+      const rect = document.querySelector('.candle-wrap').getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const colors = ['#d83f5b', '#f4d7a6', '#f6d5dc', '#d9b04d', '#b31e43'];
+      confetti = [];
+
+      for (let i = 0; i < 170; i++) {
+        confetti.push({
+          x: centerX,
+          y: centerY,
+          w: 5 + Math.random() * 6,
+          h: 13 + Math.random() * 10,
+          vx: (Math.random() - 0.5) * 8,
+          vy: -4 - Math.random() * 8,
+          rot: Math.random() * 360,
+          spin: (Math.random() - 0.5) * 16,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          life: 1,
+          decay: 0.006 + Math.random() * 0.01,
+        });
+      }
+
+      animateConfetti();
+    }
+
+    function animateConfetti() {
+      if (!confetti.length) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        return;
+      }
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      confetti = confetti.filter(piece => {
+        piece.x += piece.vx;
+        piece.y += piece.vy;
+        piece.vy += 0.12;
+        piece.rot += piece.spin;
+        piece.life -= piece.decay;
+
+        if (piece.life <= 0) return false;
+
+        ctx.save();
+        ctx.translate(piece.x, piece.y);
+        ctx.rotate(piece.rot * Math.PI / 180);
+        ctx.fillStyle = piece.color;
+        ctx.fillRect(-piece.w / 2, -piece.h / 2, piece.w, piece.h);
+        ctx.restore();
+
+        return true;
+      });
+
+      requestAnimationFrame(animateConfetti);
+    }
+
+    function clearConfetti() {
+      confetti = [];
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+  </script>
 </body>
 </html>
