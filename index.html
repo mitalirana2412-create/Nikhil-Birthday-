@@ -1,88 +1,158 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Happy Birthday, Nikhil</title>
-<style>
-:root{--pw:300px;--ph:400px;--u:3px;--red:#8a1a2e;--hand:"Segoe Script","Bradley Hand","Snell Roundhand","Brush Script MT",cursive}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;height:100%;overflow:hidden}
-body{background:#1a1412 url(data:image/webp;base64,UklGRg6eBABXRUJQVlA4IAKeBABQDRudASrcBdAHPpVInUqlpCKhpLOcALASiWdWxdL2g8Y/tn3b4A/ydc/1b/rZosE13i8Fbp89Zf/nzZ+xpqR7F/6Z7Q5ZXo79M4hRR/N+B//Aa4/LXKI5P/[...]
-body::before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 45%,#0000 35%,#0005 100%)}
-.book{z-index:1;position:absolute;width:var(--pw);height:var(--ph);left:calc(50vw - var(--pw)/2);top:calc((100vh - var(--ph))/2 - 1.5vh);perspective:2400px;transition:transform 1.2s cubic-bezier(.6,.05,.25,1)}
-.book.open{transform:translateX(calc(var(--pw)/2))}
-.pg{position:absolute;inset:0;background:#ece9e2 url(data:image/webp;base64,UklGRjTbAABXRUJQVlA4ICjbAAAw9AKdASoQBEwCPp1EnUslo6Kho7JtsLATiWlu/lp/zPr/IP4n/Y3IgR3+V6Yb0bsq+QJJG5ASQDxof5niG/Nv+H6Bv5r/[...]
-.rp{z-index:1;isolation:isolate}.rp::before,.lp::after{content:"";position:absolute;top:0;bottom:0;width:12%;pointer-events:none;z-index:9}
-.rp::before{left:0;background:linear-gradient(90deg,#0004,#0000)}.lp::after{right:0;background:linear-gradient(270deg,#0004,#0000)}
-.cw{position:absolute;inset:0;transform-origin:left center;transform-style:preserve-3d;transition:transform 1.2s cubic-bezier(.6,.05,.25,1);z-index:3}
-.book.open .cw{transform:rotateY(-180deg)}
-.cf{position:absolute;inset:0;backface-visibility:hidden;cursor:pointer;outline-offset:6px}
-.cf img{position:absolute;width:117.493%;left:-1.175%;top:-7.671%;filter:drop-shadow(0 8px 14px #0006);pointer-events:none}
-.book.open .cf{pointer-events:none}
-.lp{transform:rotateY(180deg);backface-visibility:hidden}
-.hint{position:absolute;top:calc(100% + 16px);width:100%;text-align:center;font:italic 15px var(--hand);color:#fff;text-shadow:0 1px 6px #000c;transition:opacity .4s}
-.book.open .hint{opacity:0}
-.tt{position:absolute;pointer-events:none}
-.env{position:absolute;left:calc(var(--u)*9);top:calc(var(--u)*65.3);width:calc(var(--u)*82);height:calc(var(--u)*69.8)}
-.env>*{position:absolute}
-.eb{left:.5%;right:.5%;top:2%;bottom:0;background:linear-gradient(#5f0808,#8a0d0d);border-radius:2px}
-.env .ef{inset:0;width:100%;height:100%;z-index:3;pointer-events:none}
-.let{left:calc(var(--u)*7);top:calc(var(--u)*-23);width:calc(var(--u)*68);z-index:2;cursor:pointer;transform-origin:0 0;transition:transform .8s cubic-bezier(.5,0,.2,1),filter .3s;filter:drop-shadow(0 8px 16px #0004)}
-.let img{display:block;width:100%}
-.let:hover:not(.up),.let:focus-visible:not(.up){transform:translateY(calc(var(--u)*-2.5))}
-.let.up{z-index:6;transform:translate(calc(var(--u)*-8),calc(var(--u)*-22.5)) scale(1.235);filter:drop-shadow(0 10px 22px #0007)}
-.tap{position:absolute;left:0;right:0;bottom:calc(var(--u)*2.2);text-align:center;font:italic max(10px,calc(var(--u)*3.4)) var(--hand);color:var(--red);transition:opacity .3s}
-.cake{position:absolute;left:calc(var(--u)*22);top:calc(var(--u)*25);width:calc(var(--u)*56)}
-.cake>img{display:block;width:100%;filter:drop-shadow(0 4px 6px #0003)}
-.fw{position:absolute;left:44.4%;top:-1.5%;width:9%;transform-origin:50% 100%;transform:rotate(calc(var(--b,0)*1deg)) skewX(calc(var(--b,0)*-.6deg)) scaleY(calc(1 - var(--b,0)/90));transition:opacity .2s}
-.fw img{display:block;width:100%;transform-origin:50% 100%;animation:fk .35s ease-in-out infinite alternate;filter:drop-shadow(0 0 5px #ffb52e) drop-shadow(0 0 12px #ff9a2e88)}
-.fw.out{opacity:0;filter:blur(3px)}
-@keyframes fk{from{transform:scaleY(1) rotate(-2deg)}to{transform:scaleY(1.09) scaleX(.95) rotate(2.5deg)}}
-.ctl{text-shadow:0 0 5px #ece9e2,0 0 3px #ece9e2,0 0 8px #ece9e2;position:absolute;left:calc(var(--u)*8);right:calc(var(--u)*8);bottom:calc(var(--u)*4);text-align:center;font-size:max(11px,calc(var(--u)*3.6));font-family:var(--hand);color:#5a3a26}
-.st{min-height:2.6em;margin:0 0 calc(var(--u)*1.5);color:#5a3a26;line-height:1.3}
-.meter{height:calc(var(--u)*2.6);min-height:8px;border-radius:9px;background:#ece9e2dd;border:1px solid #3b241755;overflow:hidden;position:relative;margin-bottom:calc(var(--u)*2.5)}
-.meter b{position:absolute;inset:0 auto 0 0;width:0;background:linear-gradient(90deg,#e8a33a,#c0392b)}
-.meter s{position:absolute;top:0;bottom:0;left:45%;width:2px;background:#3b2417}
-.row{display:flex;gap:calc(var(--u)*2.5);justify-content:center}
-button.b{font:inherit;color:#fff;background:var(--red);border:0;border-radius:99px;padding:.6em 1.2em;cursor:pointer;box-shadow:0 3px 0 #4d0c19;touch-action:none;user-select:none}
-button.b:active,button.b.on{transform:translateY(2px);box-shadow:0 1px 0 #4d0c19}
-button.b.alt{background:#f3ead6;color:var(--red);box-shadow:0 3px 0 #b9a77e}
-.wish{display:none}.done .wish{display:block}.done .live{display:none}
-.wish h2{margin:0 0 .3em;font:normal max(22px,calc(var(--u)*8)) var(--hand);color:var(--red)}
-.wish p{margin:0 0 .9em;font:italic max(12px,calc(var(--u)*3.6)) var(--hand)}
-.back{position:fixed;left:50%;bottom:3vh;transform:translate(-50%,20px);opacity:0;pointer-events:none;transition:.5s .6s;z-index:20}
-.book.open~.back{opacity:1;transform:translate(-50%,0);pointer-events:auto}
-#cf{position:fixed;inset:0;pointer-events:none;z-index:30}
-@media(prefers-reduced-motion:reduce){.book,.cw,.let{transition-duration:.01s}.fw img{animation:none}}
-</style></head><body>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Happy Birthday, Nikhil</title>
+  <style>
+    :root{--pw:300px;--ph:400px;--u:3px;--red:#8a1a2e;--hand:"Segoe Script","Bradley Hand","Snell Roundhand","Brush Script MT",cursive}
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    html,body{margin:0;height:100%;overflow:hidden}
+    body{background:#1a1412;background-image:url(Background.jpg);background-size:cover;background-position:center}
+    body::before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 45%,#0000 35%,#0005 100%)}
+    .book{z-index:1;position:absolute;width:var(--pw);height:var(--ph);left:calc(50vw - var(--pw)/2);top:calc((100vh - var(--ph))/2 - 1.5vh);perspective:2400px;transition:transform 1.2s cubic-bezier(.6,.05,.25,1)}
+    .book.open{transform:translateX(calc(var(--pw)/2))}
+    .pg{position:absolute;inset:0;background:#ece9e2}
+    .rp{z-index:1;isolation:isolate}.rp::before,.lp::after{content:"";position:absolute;top:0;bottom:0;width:12%;pointer-events:none;z-index:9}
+    .rp::before{left:0;background:linear-gradient(90deg,#0004,#0000)}.lp::after{right:0;background:linear-gradient(270deg,#0004,#0000)}
+    .cw{position:absolute;inset:0;transform-origin:left center;transform-style:preserve-3d;transition:transform 1.2s cubic-bezier(.6,.05,.25,1);z-index:3}
+    .book.open .cw{transform:rotateY(-180deg)}
+    .cf{position:absolute;inset:0;backface-visibility:hidden;cursor:pointer;outline-offset:6px}
+    .cf img{position:absolute;width:100%;height:100%;object-fit:cover;filter:drop-shadow(0 8px 14px #0006);pointer-events:none}
+    .book.open .cf{pointer-events:none}
+    .lp{transform:rotateY(180deg);backface-visibility:hidden}
+    .hint{position:absolute;top:calc(100% + 16px);width:100%;text-align:center;font:italic 15px var(--hand);color:#fff;text-shadow:0 1px 6px #000c;transition:opacity .4s}
+    .book.open .hint{opacity:0}
+    .content{position:absolute;inset:0;padding:20px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+    .content img{max-width:90%;height:auto;border-radius:8px;box-shadow:0 4px 6px #0003}
+    .ctl{text-shadow:0 0 5px #ece9e2,0 0 3px #ece9e2,0 0 8px #ece9e2;position:absolute;left:calc(var(--u)*8);right:calc(var(--u)*8);bottom:calc(var(--u)*4);text-align:center;font-size:max(11px,calc(var(--u)*3.6));font-family:var(--hand);color:#5a3a26}
+    .st{min-height:2.6em;margin:0 0 calc(var(--u)*1.5);color:#5a3a26;line-height:1.3}
+    .meter{height:calc(var(--u)*2.6);min-height:8px;border-radius:9px;background:#ece9e2dd;border:1px solid #3b241755;overflow:hidden;position:relative;margin-bottom:calc(var(--u)*2.5)}
+    .meter b{position:absolute;inset:0 auto 0 0;width:0;background:linear-gradient(90deg,#e8a33a,#c0392b)}
+    .meter s{position:absolute;top:0;bottom:0;left:45%;width:2px;background:#3b2417}
+    .row{display:flex;gap:calc(var(--u)*2.5);justify-content:center;flex-wrap:wrap}
+    button.b{font:inherit;color:#fff;background:var(--red);border:0;border-radius:99px;padding:.6em 1.2em;cursor:pointer;box-shadow:0 3px 0 #4d0c19;touch-action:none;user-select:none}
+    button.b:active,button.b.on{transform:translateY(2px);box-shadow:0 1px 0 #4d0c19}
+    button.b.alt{background:#f3ead6;color:var(--red);box-shadow:0 3px 0 #b9a77e}
+    .wish{display:none}.done .wish{display:block}.done .live{display:none}
+    .wish h2{margin:0 0 .3em;font:normal max(22px,calc(var(--u)*8)) var(--hand);color:var(--red)}
+    .wish p{margin:0 0 .9em;font:italic max(12px,calc(var(--u)*3.6)) var(--hand)}
+    .back{position:fixed;left:50%;bottom:3vh;transform:translate(-50%,20px);opacity:0;pointer-events:none;transition:.5s .6s;z-index:20}
+    .book.open~.back{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+    #cf{position:fixed;inset:0;pointer-events:none;z-index:30}
+    @media(prefers-reduced-motion:reduce){.book,.cw{transition-duration:.01s}}
+  </style>
+</head>
+<body>
 <main class="book" id="book">
   <section class="pg rp" id="rp">
-    <img class="tt" alt="Blow the candle" src="data:image/webp;base64,UklGRjhoAABXRUJQVlA4WAoAAAAQAAAAuwIAZQAAQUxQSBZBAAAB/yckSPD/eGtEpO4TEiJJciQpRb2O4g+4e2bXHkFE/ydAp21LEvNlX+dj/PtzS8z9ANsedfT5zC[...]
-    <div class="cake"><img alt="Birthday cake" src="data:image/webp;base64,UklGRuKFAgBXRUJQVlA4WAoAAAAQAAAA9wIAQwQAQUxQSBIrAAANB6K4bdsIUtDuv2L3SNLXNUJE5AIIyJFzx9Ytn24Bt6ClHAlakiTVESTLyoKiRHP/AzdSC[...]
+    <div class="content">
+      <img src="Main card.jpg" alt="Birthday cake with candle" style="max-width:80%">
+    </div>
     <div class="ctl" id="ctl">
       <div class="live">
-        <p class="st" id="st"></p>
+        <p class="st" id="st">🎂 Blow out the candle!</p>
         <div class="meter" aria-label="Microphone level"><b id="mb"></b><s></s></div>
-        <div class="row"><button class="b alt" id="mic">Use microphone</button><button class="b" id="hold">Hold to blow</button></div>
+        <div class="row">
+          <button class="b alt" id="mic">Use microphone</button>
+          <button class="b" id="hold">Hold to blow</button>
+        </div>
       </div>
-      <div class="wish"><h2>make a wish</h2><p>Happy birthday, Nikhil.</p><button class="b" id="relight">Relight</button></div>
+      <div class="wish">
+        <h2>make a wish</h2>
+        <p>Happy birthday, Nikhil.</p>
+        <button class="b" id="relight">Relight</button>
+      </div>
     </div>
   </section>
+  
   <div class="cw">
-    <div class="cf" id="cover" role="button" tabindex="0" aria-label="Open the card"><img alt="Happy Birthday Baby card" src="data:image/webp;base64,UklGRvjOAgBXRUJQVlA4WAoAAAAQAAAAgwMArgQAQUxQSFp[...]
+    <div class="cf" id="cover" role="button" tabindex="0" aria-label="Open the card">
+      <img alt="Happy Birthday Card Front" src="Card front.jpg">
+    </div>
     <section class="pg lp">
-      <img class="tt" alt="A letter for you (as always)" src="data:image/webp;base64,UklGRmKlAABXRUJQVlA4WAoAAAAQAAAAuwIAOAEAQUxQSC9nAAAB/yckSPD/eGtEpO4TEttGkiQpMiJv9mml/wZXde1e7xgQ0f8J0O+nfD/Vpzz[...]
-      <div class="env"><div class="eb"></div>
-        <button class="let" id="let" aria-label="Read the letter"><img alt="Letter to Nikhil" src="data:image/webp;base64,UklGRtKHAgBXRUJQVlA4WAoAAAAQAAAASwQAQwUAQUxQSAxBAAABEUduGzkSrJnN3v8/uLtnQx[...]
-        <div class="ef" style="background:url(data:image/webp;base64,UklGRuKFAgBXRUJQVlA4WAoAAAAQAAAA9wIAQwQAQUxQSBIrAAANB6K4bdsIUtDuv2L3SNLXNUJE5AIIyJFzx9Ytn24Bt6ClHAlakiTVESTLyoKiRHP/AzdSC[...]) center/cover no-repeat"></div>
-      </div>
-      <div class="ctl" style="color:#5a3a26">
-        <p class="st">💌 A special letter just for you</p>
-        <button class="b" id="back" style="margin-top:1em">Back to card</button>
+      <div class="content">
+        <img src="Letter.jpg" alt="A special letter for Nikhil" style="max-width:85%">
+        <button class="b" id="back" style="margin-top:1.5em">Back to card</button>
       </div>
     </section>
   </div>
 </main>
-<button class="b" id="relight" style="position:fixed;left:50%;bottom:3vh;transform:translate(-50%);display:none;z-index:20">Relight candle</button>
+
+<button class="b back" id="relight-btn" style="position:fixed;left:50%;bottom:3vh;transform:translate(-50%);display:none;z-index:20">Relight candle</button>
+
 <script>
-const book=document.getElementById("book"),cover=document.getElementById("cover"),mic=document.getElementById("mic"),hold=document.getElementById("hold"),back=document.getElementById("back"),let_el=document.getElementById("let"),st=document.getElementById("st"),mb=document.getElementById("mb"),fw=document.querySelector(".fw"),ctl=document.getElementById("ctl");let isOpen=false,micActive=false;cover.addEventListener("click",()=>{isOpen=!isOpen,book.classList.toggle("open"),isOpen?(mic.focus(),st.textContent="Click 'Hold to blow' or use microphone"):st.textContent=""});hold.addEventListener("mousedown",()=>blowOut()),hold.addEventListener("touchstart",()=>blowOut()),mic.addEventListener("click",()=>{micActive=!micActive,mic.textContent=micActive?"Stop microphone":"Use microphone",micActive?startMic():stopMic()});let_el.addEventListener("click",()=>{let_el.classList.toggle("up")});back&&back.addEventListener("click",()=>{book.classList.remove("open"),isOpen=false});function blowOut(){fw&&(fw.style.opacity="0",fw.style.filter="blur(3px)",st.textContent="🎉 Make a wish!",ctl.classList.add("done"),setTimeout(()=>{document.getElementById("relight").style.display="block"},1e3))}function startMic(){navigator.mediaDevices.getUserMedia({audio:true}).then(stream=>{const audioContext=new(window.AudioContext||window.webkitAudioContext),analyser=audioContext.createAnalyser(),source=audioContext.createMediaStreamSource(stream);source.connect(analyser),analyser.fftSize=256;const dataArray=new Uint8Array(analyser.frequencyBinCount);const checkBlow=setInterval(()=>{analyser.getByteFrequencyData(dataArray);const average=dataArray.reduce((a,b)=>a+b)/dataArray.length;mb.style.width=Math.min(100,average/2.55)+"%",average>100&&(clearInterval(checkBlow),blowOut(),stopMic())},50)}).catch(()=>{st.textContent="Microphone access denied"})}function stopMic(){micActive=false,mic.textContent="Use microphone"}
+const book=document.getElementById("book"),cover=document.getElementById("cover"),mic=document.getElementById("mic"),hold=document.getElementById("hold"),back=document.getElementById("back"),st=document.getElementById("st"),mb=document.getElementById("mb"),ctl=document.getElementById("ctl"),relightBtn=document.getElementById("relight-btn");
+
+let isOpen=false,micActive=false;
+
+cover.addEventListener("click",()=>{
+  isOpen=!isOpen;
+  book.classList.toggle("open");
+  if(isOpen) {
+    mic.focus();
+    st.textContent="🎂 Blow out the candle!";
+  }
+});
+
+hold.addEventListener("mousedown",blowOut);
+hold.addEventListener("touchstart",blowOut);
+
+mic.addEventListener("click",()=>{
+  micActive=!micActive;
+  mic.textContent=micActive?"Stop microphone":"Use microphone";
+  micActive?startMic():stopMic();
+});
+
+back&&back.addEventListener("click",()=>{
+  book.classList.remove("open");
+  isOpen=false;
+});
+
+function blowOut(){
+  st.textContent="🎉 Make a wish!";
+  ctl.classList.add("done");
+  relightBtn.style.display="block";
+}
+
+document.getElementById("relight").addEventListener("click",relightCandle);
+relightBtn.addEventListener("click",relightCandle);
+
+function relightCandle(){
+  st.textContent="🎂 Blow out the candle!";
+  ctl.classList.remove("done");
+  relightBtn.style.display="none";
+  stopMic();
+}
+
+function startMic(){
+  navigator.mediaDevices.getUserMedia({audio:true}).then(stream=>{
+    const audioContext=new(window.AudioContext||window.webkitAudioContext);
+    const analyser=audioContext.createAnalyser();
+    const source=audioContext.createMediaStreamSource(stream);
+    source.connect(analyser);
+    analyser.fftSize=256;
+    const dataArray=new Uint8Array(analyser.frequencyBinCount);
+    
+    const checkBlow=setInterval(()=>{
+      analyser.getByteFrequencyData(dataArray);
+      const average=dataArray.reduce((a,b)=>a+b)/dataArray.length;
+      mb.style.width=Math.min(100,average/2.55)+"%";
+      if(average>100){
+        clearInterval(checkBlow);
+        blowOut();
+        stopMic();
+      }
+    },50);
+  }).catch(()=>{
+    st.textContent="🎤 Microphone access denied";
+  });
+}
+
+function stopMic(){
+  micActive=false;
+  mic.textContent="Use microphone";
+}
 </script>
-</body></html>
+</body>
+</html>
